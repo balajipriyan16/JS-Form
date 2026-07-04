@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f5f5f5;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            margin-top:50px;
+        }
+
+        h1{
+            color:#333;
+            margin-bottom:20px;
+        }
+
+        .container{
+            width:350px;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,.15);
+            display:flex;
+            flex-direction:column;
+        }
+
+        .container h2{
+            font-size:18px;
+            margin:15px 0 6px;
+            color:#444;
+        }
+
+        .container input{
+            padding:10px;
+            font-size:16px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            outline:none;
+            transition:.3s;
+        }
+
+        .container input:focus{
+            border-color:#007bff;
+            box-shadow:0 0 5px rgba(0,123,255,.3);
+        }
+
+        .error{
+            display:none;
+            color:red;
+            font-size:14px;
+            margin:5px 0 0;
+        }
+
+        #btn{
+            margin-top:20px;
+            padding:10px;
+            font-size:16px;
+            border:none;
+            border-radius:5px;
+            background:#007bff;
+            color:white;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        #btn:hover{
+            background:#0056b3;
+        }
+
+        #btn:disabled{
+            background:#0056b3;
+            color:#d3d3d3;
+            cursor:not-allowed;
+            opacity:.7;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>User Registration Form</h1>
+
+    <div class="container">
+
+        <h2>Name</h2>
+        <input type="text" id="NameInput" placeholder="Enter Name">
+        <p class="error" id="nameError"></p>
+
+        <h2>Email</h2>
+        <input type="email" id="MailInput" placeholder="Enter Email">
+        <p class="error" id="mailError"></p>
+
+        <h2>Password</h2>
+        <input type="password" id="PassInput" placeholder="Enter Password">
+        <p class="error" id="passError"></p>
+
+        <button id="btn">Submit</button>
+
+    </div>
+
+    <script>
+        var Name = document.getElementById("NameInput");
+        var Mail = document.getElementById("MailInput");
+        var Password = document.getElementById("PassInput");
+        var btn = document.getElementById("btn");
+
+        var nameError = document.getElementById("nameError");
+        var mailError = document.getElementById("mailError");
+        var passError = document.getElementById("passError");
+
+        btn.addEventListener("click", function () {
+
+            // Hide previous errors
+            nameError.style.display = "none";
+            mailError.style.display = "none";
+            passError.style.display = "none";
+
+            var isValid = true;
+
+            // Name Validation
+            if (Name.value.trim() === "") {
+                nameError.style.display = "block";
+                nameError.textContent = "Name cannot be empty";
+                isValid = false;
+            }
+
+            // Email Validation
+
+            if (Mail.value.trim() === "") {
+                mailError.style.display = "block";
+                mailError.textContent = "Email cannot be empty";
+                isValid = false;
+            }
+            else if (!Mail.value.includes("@") || !Mail.value.includes(".")) {
+                mailError.style.display = "block";
+                mailError.textContent = "Enter a valid email address";
+                isValid = false;
+            }
+
+            // Password Validation
+            if (Password.value.trim() === "") {
+                passError.style.display = "block";
+                passError.textContent = "Password cannot be empty";
+                isValid = false;
+            }
+            else if (Password.value.length < 6) {
+                passError.style.display = "block";
+                passError.textContent = "Password must be at least 6 characters";
+                isValid = false;
+            }
+
+            // Success
+            if (isValid) {
+                btn.disabled = true;
+                btn.textContent = "Submitted";
+                alert("Registration Successful!");
+            }
+
+        });
+    </script>
+
+</body>
+</html>
